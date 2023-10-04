@@ -1,104 +1,56 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
 /**
- * countWords - counts the numbers o words in the string
- * @str: source string
- *
- *
- * Return: the number of words.
- */
-int countWords(char *str)
+* argstostr - a function that concatenates all the arguments of your program
+*@ac: count of args passed to the function
+*@av:array of arguments
+*
+*Return: pointer to the new string
+*/
+
+char *argstostr(int ac, char **av)
 {
-	int words;
+		char *new_string = NULL;
+		int k = 0, i = ac, j, sum = 0, temp = 0;
 
-	words = 0;
+		if (ac == 0 || av == NULL)
+			return (NULL);
 
-	while (*str)
-	{
-		if (*str != ' ')
+		while (ac--)
+			sum += (len(av[ac]) + 1);
+		new_string = (char *) malloc(sum + 1);
+
+		if (new_string != NULL)
 		{
-			if (*(str + 1) == ' ' || *(str + 1) == '\0')
-				words++;
-			str++;
-		}
-		else
-			str++;
-	}
-	return (words);
-}
-/**
- * countChars - counts the numbers o characters in a string
- * @str: source string
- *
- *
- * Return: the number of words.
- */
-int countChars(char *str)
-{
-	int chars;
-
-	chars = 0;
-	while (*str)
-	{
-		if (*str != ' ')
-		{
-			if (*(str + 1) != ' ' || *(str + 1) != '\0')
-				chars++;
-			str++;
-		}
-		else
-			break;
-	}
-	return (chars);
-}
-/**
- * strtow - separates the character to an string of words
- * @str: source string
- *
- *
- * Return: the pointer to the new array of words.
- */
-char **strtow(char *str)
-{
-	int numWords, numChars, i, j;
-	char **words;
-
-	i = 0;
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	numWords = countWords(str);
-	if (numWords == 0)
-		return (NULL);
-	words = (char **) malloc((numWords + 1) * sizeof(char *));
-	if (words == NULL)
-	{
-		free(words);
-		return (NULL);
-	}
-	while (i < numWords)
-	{
-		if (*str == ' ')
-			str++;
-		else
-		{
-			numChars = countChars(str);
-			*(words + i) = (char *) malloc((numChars + 1) * sizeof(char));
-			if (*(words + i) == NULL)
+			while (k < i)
 			{
-				for (j = 0; j < i; j++)
-					free(*(words + j));
-				free(words);
-				return (NULL);
+				for (j = 0; av[k][j] != '\0'; j++)
+					new_string[j + temp] = av[k][j];
+				new_string[temp + j] = '\n';
+				temp += (j + 1);
+				k++;
 			}
-			for (j = 0; j < numChars; j++)
-			{
-				*(*(words + i) + j) = *str;
-				str++; }
-			*(*(words + i) + j) = '\0';
-			i++;
+			new_string[temp] = '\0';
 		}
-	}
-	*(words + numWords) = NULL;
-	return (words);
+		else
+		{
+			return (NULL);
+		}
+		return (new_string);
+}
+
+/**
+*len - returns length of str
+*@str: string counted
+*Return: returns the length
+*/
+int len(char *str)
+{
+		int len = 0;
+
+		if (str != NULL)
+		{
+			while (str[len])
+				len++;
+		}
+	return (len);
 }
