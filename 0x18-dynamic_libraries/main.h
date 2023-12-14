@@ -1,5 +1,5 @@
-#ifndef __MAIN_
-#define __MAIN_
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 
 int _putchar(char c);
@@ -24,4 +24,4 @@ char *_strpbrk(char *s, char *accept);
 char *_strstr(char *haystack, char *needle);
 int nrandom();
 
-#endif 
+#endif /* main_h */
